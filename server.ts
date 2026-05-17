@@ -17,6 +17,9 @@ async function startServer() {
   // --- API Routes for the AI Swarm ---
   app.post("/api/discovery", DiscoveryAgent.scan);
   app.post("/api/ltm/ingest", LTMAgent.ingest);
+  app.get("/api/ltm/github", LTMAgent.githubSync);
+  app.post("/api/ltm/github/setup", LTMAgent.githubSetup);
+  app.post("/api/ltm/commit", LTMAgent.generateCommit);
   app.post("/api/dispatch", SwarmOrchestrator.dispatch);
 
   // Vite middleware for development

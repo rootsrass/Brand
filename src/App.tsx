@@ -6,6 +6,7 @@ import PromptTab from './features/core/PromptTab';
 import WorkspaceTab from './features/core/WorkspaceTab';
 import LtmTab from './features/ltm/LtmTab';
 import DiscoveryTab from './features/discovery/DiscoveryTab';
+import EntityResolutionTab from './features/discovery/EntityResolutionTab';
 import InputTab from './features/content/InputTab';
 import OutputTab from './features/content/OutputTab';
 import CalendarTab from './features/calendar/CalendarTab';
@@ -27,6 +28,7 @@ function MainShell() {
           {activeTab === 'workspace' && <WorkspaceTab />}
           {activeTab === 'ltm' && <LtmTab />}
           {activeTab === 'discovery' && <DiscoveryTab />}
+          {activeTab === 'entity_resolution' && <EntityResolutionTab />}
           {activeTab === 'input' && <InputTab />}
           {activeTab === 'output' && <OutputTab />}
           {activeTab === 'calendar' && <CalendarTab />}

@@ -34,4 +34,4 @@ export interface DiscoveryItem {
   };
 }
 
-export type TabId = 'prompt' | 'workspace' | 'ltm' | 'discovery' | 'input' | 'output' | 'calendar';
+export type TabId = 'prompt' | 'workspace' | 'ltm' | 'discovery' | 'entity_resolution' | 'input' | 'output' | 'calendar';

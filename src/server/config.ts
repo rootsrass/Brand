@@ -7,8 +7,7 @@ export const config = {
   FIRECRAWL_API_KEY: process.env.FIRECRAWL_API_KEY || '',
   
   // LLMs
-  OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
-  GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
+  NVIDIA_NIM_API_KEY: process.env.NVIDIA_NIM_API_KEY || '',
   
   // GitHub LTM
   GITHUB_PAT: process.env.GITHUB_PAT || '',
@@ -18,8 +17,8 @@ export const config = {
 
 export function validateConfig() {
   const warnings: string[] = [];
-  if (!config.OPENAI_API_KEY && !config.GEMINI_API_KEY) {
-    warnings.push("No LLM API key provided. AI orchestration will fail in production.");
+  if (!config.NVIDIA_NIM_API_KEY) {
+    warnings.push("No NVIDIA NIM API key provided. AI orchestration will fail in production.");
   }
   if (!config.GITHUB_PAT) {
     warnings.push("No GITHUB_PAT provided. LTM (Long-Term Memory) features will fail in production.");

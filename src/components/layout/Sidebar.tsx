@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
-  Terminal, FolderTree, BookOpen, Globe, 
-  Image as ImageIcon, MessageSquare, CalendarRange, Activity 
+  Terminal, FolderTree, BookOpen, Globe, Fingerprint,
+  Image as ImageIcon, MessageSquare, CalendarRange, Activity, Copy, Check
 } from 'lucide-react';
 import { useUIStore } from '../../stores/uiStore';
 import { useAgentStore } from '../../stores/agentStore';
@@ -11,16 +11,25 @@ export default function Sidebar() {
   const activeTab = useUIStore(state => state.activeTab);
   const setActiveTab = useUIStore(state => state.setActiveTab);
   const activityFeed = useAgentStore(state => state.activityFeed);
+  const [copied, setCopied] = useState(false);
 
   const navItems: { id: TabId; label: string; icon: React.ElementType }[] = [
     { id: 'prompt', label: 'Master System Prompt', icon: Terminal },
     { id: 'workspace', label: 'Repository Workspace', icon: FolderTree },
     { id: 'ltm', label: 'Brand LTM State', icon: BookOpen },
     { id: 'discovery', label: 'Discovery Engine', icon: Globe },
+    { id: 'entity_resolution', label: 'Entity Resolution', icon: Fingerprint },
     { id: 'input', label: 'Field Notes & Media', icon: ImageIcon },
     { id: 'output', label: 'Generated Output', icon: MessageSquare },
     { id: 'calendar', label: 'Distribution Calendar', icon: CalendarRange },
   ];
+
+  const handleCopyLogs = () => {
+    const textToCopy = activityFeed.map(log => `[${log.time}] ${log.agent}: ${log.message}`).join('\n');
+    navigator.clipboard.writeText(textToCopy);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <aside className="lg:col-span-1 space-y-2">
@@ -65,11 +74,20 @@ export default function Sidebar() {
       </div>
 
       {/* Live Swarm Activity Feed */}
-      <div className="bg-stone-200/50 rounded-xl p-4 border border-stone-200">
-         <h2 className="text-xs font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-           <Activity className="w-4 h-4" /> Live Swarm Logs
-         </h2>
-         <div className="space-y-3 h-48 overflow-y-auto pr-1 custom-scrollbar flex flex-col-reverse">
+      <div className="bg-stone-200/50 rounded-xl p-4 border border-stone-200 flex flex-col h-64">
+         <div className="flex justify-between items-center mb-3">
+           <h2 className="text-xs font-bold text-stone-500 uppercase tracking-wider flex items-center gap-2">
+             <Activity className="w-4 h-4" /> Live Swarm Logs
+           </h2>
+           <button 
+             onClick={handleCopyLogs}
+             className="text-stone-400 hover:text-stone-700 transition-colors"
+             title="Copy Logs"
+           >
+             {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+           </button>
+         </div>
+         <div className="flex-1 overflow-y-auto pr-1 custom-scrollbar flex flex-col-reverse space-y-3 space-y-reverse">
            {[...activityFeed].reverse().map((log, i) => {
              let agentColor = 'text-stone-700'; // default
              if (log.agent === 'Copywriter Agent') agentColor = 'text-blue-700';
@@ -83,7 +101,7 @@ export default function Sidebar() {
                    <span className={`font-bold ${agentColor}`}>{log.agent}</span>
                    <span>{log.time}</span>
                  </div>
-                 <p className="text-stone-600 leading-snug">{log.message}</p>
+                 <p className="text-stone-600 leading-snug break-words">{log.message}</p>
                </div>
              );
            })}

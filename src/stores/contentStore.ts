@@ -9,6 +9,16 @@ interface ContentState {
   ltmStatus: 'idle' | 'processing' | 'success' | 'discovering';
   setLtmStatus: (status: 'idle' | 'processing' | 'success' | 'discovering') => void;
   handleInitializeSwarm: () => void;
+  
+  isGithubSyncing: boolean;
+  handleGithubSync: () => void;
+
+  isGithubSettingUp: boolean;
+  handleGithubSetup: () => void;
+
+  isGeneratingCommit: boolean;
+  commitLog: string;
+  handleGenerateCommit: () => void;
 
   discoveryQueue: DiscoveryItem[];
   setDiscoveryQueue: (updater: DiscoveryItem[] | ((prev: DiscoveryItem[]) => DiscoveryItem[])) => void;
@@ -50,6 +60,70 @@ export const useContentStore = create<ContentState>((set, get) => ({
     } catch (e) {
       set({ ltmStatus: 'idle' });
       useAgentStore.getState().addActivity('Brand Guardian', 'Ingestion failed check console logs.');
+    }
+  },
+
+  isGithubSyncing: false,
+  handleGithubSync: async () => {
+    set({ isGithubSyncing: true });
+    useAgentStore.getState().addActivity('Brand Guardian', 'Syncing LTM context from GitHub Repository (rootsrass/Brand)...');
+    
+    try {
+      const resp = await fetch('/api/ltm/github');
+      const data = await resp.json();
+      set({ isGithubSyncing: false });
+      
+      if (data.success && data.content) {
+         set({ ltmInput: data.content });
+         useAgentStore.getState().addActivity('Brand Guardian', 'Successfully retrieved remote context. Ready for initialization.');
+      } else {
+         useAgentStore.getState().addActivity('Brand Guardian', `GitHub Sync Failed: ${data.message}`);
+      }
+    } catch(e) {
+      set({ isGithubSyncing: false });
+      useAgentStore.getState().addActivity('Brand Guardian', 'GitHub Sync encountered a network error.');
+    }
+  },
+
+  isGithubSettingUp: false,
+  handleGithubSetup: async () => {
+    set({ isGithubSettingUp: true });
+    useAgentStore.getState().addActivity('Brand Guardian', 'Initializing master architecture in GitHub LTM (rootsrass/Brand)...');
+    
+    try {
+      const resp = await fetch('/api/ltm/github/setup', { method: 'POST' });
+      const data = await resp.json();
+      set({ isGithubSettingUp: false });
+      
+      if (data.success) {
+         useAgentStore.getState().addActivity('Brand Guardian', 'Successfully initialized GitHub directory structure. Ready for sync.');
+      } else {
+         useAgentStore.getState().addActivity('Brand Guardian', `GitHub Setup Failed: ${data.message}`);
+      }
+    } catch(e) {
+      set({ isGithubSettingUp: false });
+      useAgentStore.getState().addActivity('Brand Guardian', 'GitHub Setup encountered a network error.');
+    }
+  },
+
+  isGeneratingCommit: false,
+  commitLog: '',
+  handleGenerateCommit: async () => {
+    set({ isGeneratingCommit: true, commitLog: '' });
+    useAgentStore.getState().addActivity('Brand Guardian', 'Generating End-of-Session Commit Log...');
+    
+    const activityLog = useAgentStore.getState().activities.map(a => `[${a.timestamp}] ${a.agentName}: ${a.message}`).join('\\n');
+    
+    try {
+      const resp = await fetch('/api/ltm/commit', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({ activityLog })
+      });
+      const data = await resp.json();
+      set({ isGeneratingCommit: false, commitLog: data.commitLog || 'Failed to generate commit log.' });
+    } catch (e) {
+      set({ isGeneratingCommit: false, commitLog: '**Error:** Network failure.' });
     }
   },
 
