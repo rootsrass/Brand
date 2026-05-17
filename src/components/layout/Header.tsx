@@ -1,9 +1,9 @@
 import React from 'react';
 import { TreePine } from 'lucide-react';
-import { useSwarm } from '../../contexts/SwarmContext';
+import { useUIStore } from '../../stores/uiStore';
 
 export default function Header() {
-  const { systemOnline } = useSwarm();
+  const systemOnline = useUIStore(state => state.systemOnline);
   
   return (
     <header className="bg-emerald-900 text-emerald-50 p-4 shadow-md flex items-center justify-between">

@@ -1,17 +1,17 @@
 import React from 'react';
-import { SwarmProvider, useSwarm } from './contexts/SwarmContext';
+import { useUIStore } from './stores/uiStore';
 import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
-import PromptTab from './components/tabs/PromptTab';
-import WorkspaceTab from './components/tabs/WorkspaceTab';
-import LtmTab from './components/tabs/LtmTab';
-import DiscoveryTab from './components/tabs/DiscoveryTab';
-import InputTab from './components/tabs/InputTab';
-import OutputTab from './components/tabs/OutputTab';
-import CalendarTab from './components/tabs/CalendarTab';
+import PromptTab from './features/core/PromptTab';
+import WorkspaceTab from './features/core/WorkspaceTab';
+import LtmTab from './features/ltm/LtmTab';
+import DiscoveryTab from './features/discovery/DiscoveryTab';
+import InputTab from './features/content/InputTab';
+import OutputTab from './features/content/OutputTab';
+import CalendarTab from './features/calendar/CalendarTab';
 
 function MainShell() {
-  const { activeTab } = useSwarm();
+  const activeTab = useUIStore(state => state.activeTab);
 
   return (
     <div className="min-h-screen bg-stone-100 font-sans text-stone-900 flex flex-col">
@@ -38,8 +38,6 @@ function MainShell() {
 
 export default function App() {
   return (
-    <SwarmProvider>
-      <MainShell />
-    </SwarmProvider>
+    <MainShell />
   );
 }

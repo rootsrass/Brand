@@ -1,12 +1,20 @@
 import React from 'react';
 import { MessageSquare, Calendar, Loader2, CheckCheck, Copy, GitCommitHorizontal } from 'lucide-react';
-import { useSwarm } from '../../contexts/SwarmContext';
+import { useUIStore } from '../../stores/uiStore';
+import { useContentStore } from '../../stores/contentStore';
+import { useAgentStore } from '../../stores/agentStore';
 
 export default function OutputTab() {
-  const { 
-    setActiveTab, isGenerating, generatedPosts, setGeneratedPosts, 
-    setScheduledPosts, addActivity, commitLogs, setCommitLogs 
-  } = useSwarm();
+  const setActiveTab = useUIStore(state => state.setActiveTab);
+  
+  const isGenerating = useContentStore(state => state.isGenerating);
+  const generatedPosts = useContentStore(state => state.generatedPosts);
+  const setGeneratedPosts = useContentStore(state => state.setGeneratedPosts);
+  const setScheduledPosts = useContentStore(state => state.setScheduledPosts);
+  const commitLogs = useContentStore(state => state.commitLogs);
+  const setCommitLogs = useContentStore(state => state.setCommitLogs);
+
+  const addActivity = useAgentStore(state => state.addActivity);
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6 flex flex-col h-[600px]">

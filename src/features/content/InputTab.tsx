@@ -1,9 +1,15 @@
 import React from 'react';
 import { Share2, Image as ImageIcon, Send, Loader2 } from 'lucide-react';
-import { useSwarm } from '../../contexts/SwarmContext';
+import { useContentStore } from '../../stores/contentStore';
+import { useAgentStore } from '../../stores/agentStore';
 
 export default function InputTab() {
-  const { addActivity, fieldNotes, setFieldNotes, handleDispatch, isGenerating } = useSwarm();
+  const fieldNotes = useContentStore(state => state.fieldNotes);
+  const setFieldNotes = useContentStore(state => state.setFieldNotes);
+  const handleDispatch = useContentStore(state => state.handleDispatch);
+  const isGenerating = useContentStore(state => state.isGenerating);
+  
+  const addActivity = useAgentStore(state => state.addActivity);
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6 flex flex-col h-[600px]">

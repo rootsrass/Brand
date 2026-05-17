@@ -25,6 +25,13 @@ export interface DiscoveryItem {
   source: string;
   content: string;
   insight: string;
+  confidence?: number;
+  metadata?: {
+    locationMatch: boolean;
+    nameMatch: boolean;
+    phoneMatch: boolean;
+    websiteMatch: boolean;
+  };
 }
 
 export type TabId = 'prompt' | 'workspace' | 'ltm' | 'discovery' | 'input' | 'output' | 'calendar';

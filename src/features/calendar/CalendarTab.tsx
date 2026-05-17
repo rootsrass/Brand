@@ -1,9 +1,9 @@
 import React from 'react';
 import { CalendarRange, Calendar, Clock } from 'lucide-react';
-import { useSwarm } from '../../contexts/SwarmContext';
+import { useContentStore } from '../../stores/contentStore';
 
 export default function CalendarTab() {
-  const { scheduledPosts } = useSwarm();
+  const scheduledPosts = useContentStore(state => state.scheduledPosts);
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6 flex flex-col h-[600px]">

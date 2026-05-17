@@ -1,9 +1,13 @@
 import React from 'react';
 import { GitCommitHorizontal, RefreshCcw, CheckCheck, ShieldCheck } from 'lucide-react';
-import { useSwarm } from '../../contexts/SwarmContext';
+import { useContentStore } from '../../stores/contentStore';
 
 export default function LtmTab() {
-  const { ltmStatus, ltmInput, setLtmInput, handleAutoDiscover, handleInitializeSwarm } = useSwarm();
+  const ltmStatus = useContentStore(state => state.ltmStatus);
+  const ltmInput = useContentStore(state => state.ltmInput);
+  const setLtmInput = useContentStore(state => state.setLtmInput);
+  const handleAutoDiscover = useContentStore(state => state.handleAutoDiscover);
+  const handleInitializeSwarm = useContentStore(state => state.handleInitializeSwarm);
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6 flex flex-col h-[600px]">

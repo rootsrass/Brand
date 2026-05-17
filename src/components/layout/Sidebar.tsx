@@ -3,11 +3,14 @@ import {
   Terminal, FolderTree, BookOpen, Globe, 
   Image as ImageIcon, MessageSquare, CalendarRange, Activity 
 } from 'lucide-react';
-import { useSwarm } from '../../contexts/SwarmContext';
+import { useUIStore } from '../../stores/uiStore';
+import { useAgentStore } from '../../stores/agentStore';
 import { TabId } from '../../types';
 
 export default function Sidebar() {
-  const { activeTab, setActiveTab, activityFeed } = useSwarm();
+  const activeTab = useUIStore(state => state.activeTab);
+  const setActiveTab = useUIStore(state => state.setActiveTab);
+  const activityFeed = useAgentStore(state => state.activityFeed);
 
   const navItems: { id: TabId; label: string; icon: React.ElementType }[] = [
     { id: 'prompt', label: 'Master System Prompt', icon: Terminal },
@@ -66,16 +69,24 @@ export default function Sidebar() {
          <h2 className="text-xs font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-2">
            <Activity className="w-4 h-4" /> Live Swarm Logs
          </h2>
-         <div className="space-y-3 h-48 overflow-y-auto pr-1 custom-scrollbar">
-           {activityFeed.map((log, i) => (
-             <div key={i} className="text-xs">
-               <div className="flex justify-between items-center text-stone-400 mb-0.5">
-                 <span className="font-bold text-stone-700">{log.agent}</span>
-                 <span>{log.time}</span>
+         <div className="space-y-3 h-48 overflow-y-auto pr-1 custom-scrollbar flex flex-col-reverse">
+           {[...activityFeed].reverse().map((log, i) => {
+             let agentColor = 'text-stone-700'; // default
+             if (log.agent === 'Copywriter Agent') agentColor = 'text-blue-700';
+             if (log.agent === 'Omnichannel Distro') agentColor = 'text-purple-700';
+             if (log.agent === 'Brand Guardian') agentColor = 'text-amber-700';
+             if (log.agent === 'Discovery Agent') agentColor = 'text-rose-700';
+             
+             return (
+               <div key={i} className="text-xs">
+                 <div className="flex justify-between items-center text-stone-400 mb-0.5">
+                   <span className={`font-bold ${agentColor}`}>{log.agent}</span>
+                   <span>{log.time}</span>
+                 </div>
+                 <p className="text-stone-600 leading-snug">{log.message}</p>
                </div>
-               <p className="text-stone-600 leading-snug">{log.message}</p>
-             </div>
-           ))}
+             );
+           })}
          </div>
       </div>
     </aside>
