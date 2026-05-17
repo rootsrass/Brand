@@ -1,0 +1,8 @@
+{
+  "name": "EcoManage AI Swarm",
+  "description": "Digital media management and marketing strategist agent swarm for local contracting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
