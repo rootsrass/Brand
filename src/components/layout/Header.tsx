@@ -13,7 +13,7 @@ export default function Header() {
         </div>
         <div>
           <h1 className="text-xl font-bold tracking-tight">EcoManage AI Command Center</h1>
-          <p className="text-emerald-300 text-xs font-mono uppercase tracking-wider">GrassRoots LLC Media Swarm // v1.1</p>
+          <p className="text-emerald-300 text-xs font-mono uppercase tracking-wider">GrassRoots Tree Landscape and Loader Services Media Swarm // v1.1</p>
         </div>
       </div>
       <div className="flex items-center gap-2 text-sm font-mono bg-emerald-950 px-3 py-1.5 rounded-full border border-emerald-800">

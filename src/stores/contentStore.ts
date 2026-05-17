@@ -135,7 +135,7 @@ export const useContentStore = create<ContentState>((set, get) => ({
     set({ ltmStatus: 'discovering' });
     useUIStore.getState().setActiveTab('discovery');
     const agentStore = useAgentStore.getState();
-    agentStore.addActivity('Discovery Agent', 'Initiating wide-area net scan for GrassRoots LLC assets...');
+    agentStore.addActivity('Discovery Agent', 'Initiating wide-area net scan for GrassRoots Tree Landscape and Loader Services assets...');
     agentStore.setDiscoveryLogs([]);
     
     try {

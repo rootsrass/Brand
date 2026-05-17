@@ -33,7 +33,7 @@ export class DiscoveryAgent {
         baseURL: 'https://integrate.api.nvidia.com/v1',
       });
 
-      const prompt = `You are an elite Digital Intelligence & Discovery Agent tasked with an exhaustive, multi-channel online presence analysis for "GrassRoots" (specializing in landscaping, tree service, hardscaping, lawn care, and outdoor living) across "New Smyrna Beach", "Edgewater", "Port Orange", and the broader "Volusia County" area.
+      const prompt = `You are an elite Digital Intelligence & Discovery Agent tasked with an exhaustive, multi-channel online presence analysis for "GrassRoots Tree Landscape and Loader Services" (specializing in landscaping, tree service, hardscaping, lawn care, and outdoor living) across "New Smyrna Beach", "Edgewater", "Port Orange", and the broader "Volusia County" area.
 
 Since live search is not directly attached, simulate an advanced aggregation by generating exactly 5 highly realistic, nuanced, and diverse discovery items that a comprehensive web scraping engine would find. Ensure a rich mix of online presence channels.
 

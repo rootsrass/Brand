@@ -120,7 +120,7 @@ Return a JSON object with 'summary' (the condensed fact). Ensure your response i
       const filesToCreate = [
         {
           path: 'inbox/company_profile/master_profile.txt',
-          content: 'GrassRoots LLC - Master Profile\n\nAdd your company details, brand voice, and service areas here.'
+          content: 'GrassRoots Tree Landscape and Loader Services - Master Profile\n\nAdd your company details, brand voice, and service areas here.'
         },
         {
           path: 'inbox/metrics/active_campaigns.md',

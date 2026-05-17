@@ -16,7 +16,7 @@ export class SwarmOrchestrator {
         post: {
           id: Date.now(),
           platform: 'INSTAGRAM / TIKTOK',
-          content: `Transforming spaces! 🌿✨\n\n${fieldNotes.slice(0, 50)}...\n\nSwipe to see the before and after! 👉\n\n#Landscaping #Hardscape #NewSmyrnaBeach #GrassRootsLLC`,
+          content: `Transforming spaces! 🌿✨\n\n${fieldNotes.slice(0, 50)}...\n\nSwipe to see the before and after! 👉\n\n#Landscaping #Hardscape #NewSmyrnaBeach #GrassRootsServices`,
           status: 'pending'
         },
         log: {
@@ -34,7 +34,7 @@ export class SwarmOrchestrator {
         baseURL: 'https://integrate.api.nvidia.com/v1',
       });
 
-      const prompt = `You are a professional Copywriter & Brand Guardian for GrassRoots LLC, a local landscaping company in New Smyrna Beach. 
+      const prompt = `You are a professional Copywriter & Brand Guardian for GrassRoots Tree Landscape and Loader Services, a local landscaping company in New Smyrna Beach. 
 Generate a high-converting, local-focused social media post based on these notes: "${fieldNotes}".
 Also generate an internal commit log summarizing the actions.
 
@@ -85,7 +85,7 @@ Return ONLY a valid JSON object matching this schema:
         post: {
           id: Date.now(),
           platform: 'INSTAGRAM / TIKTOK',
-          content: `Transforming spaces! 🌿✨\n\n${fieldNotes.slice(0, 50)}...\n\nSwipe to see the before and after! 👉\n\n#Landscaping #Hardscape #NewSmyrnaBeach #GrassRootsLLC`,
+          content: `Transforming spaces! 🌿✨\n\n${fieldNotes.slice(0, 50)}...\n\nSwipe to see the before and after! 👉\n\n#Landscaping #Hardscape #NewSmyrnaBeach #GrassRootsServices`,
           status: 'pending'
         },
         log: {

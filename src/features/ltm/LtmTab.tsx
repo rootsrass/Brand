@@ -71,7 +71,7 @@ export default function LtmTab() {
               </div>
               <h3 className="text-lg font-bold text-emerald-900 mb-2">Memory Initialized & Validated</h3>
               <p className="text-sm text-emerald-700 max-w-md mx-auto mb-6">
-                The Brand Guardian Agent has successfully processed the Context Summary. The Swarm is now aware of GrassRoots LLC's latest state, services, and branding guidelines.
+                The Brand Guardian Agent has successfully processed the Context Summary. The Swarm is now aware of GrassRoots Tree Landscape and Loader Services's latest state, services, and branding guidelines.
               </p>
               <button 
                 onClick={() => window.location.reload()}
